@@ -60,51 +60,15 @@ resource "aws_s3_bucket" "glue_scripts" {
 resource "aws_s3_object" "glue_script_file" {
   bucket = aws_s3_bucket.glue_scripts.bucket
   key    = "spark/spark-job.py"
-  source = "../../scripts/data_engineer/spark-job.py"
+  source = "../../scripts/spark-job.py"
 }
 
-# Airflow Bucket
-resource "aws_s3_bucket" "airflow_scripts" {
-  bucket = "wu10airflow-scripts"
+# Athena Bucket
+resource "aws_s3_bucket" "athena_queries" {
+  bucket = "wu10athena-queries"
 
   tags = {
     Terraform   = "true"
-    Environment = "airflow"
+    Environment = "spark"
   }
-}
-
-resource "aws_s3_object" "airflow_script_file" {
-  bucket = aws_s3_bucket.airflow_scripts.bucket
-  key    = "dag.py"
-  source = "../../scripts/data_engineer/dag.py"
-}
-
-resource "aws_s3_object" "airflow_script_folder" {
-  bucket       = aws_s3_bucket.airflow_scripts.bucket
-  key          = local.dag_folder
-  source       = "/dev/null"
-  content_type = "application/x-directory"
-}
-
-# Lambda Bucket
-resource "aws_s3_bucket" "lambda_scripts" {
-  bucket = "wu10lambda-scripts"
-
-  tags = {
-    Terraform   = "true"
-    Environment = "airflow"
-  }
-}
-
-resource "aws_s3_object" "lambda_script_file" {
-  bucket = aws_s3_bucket.lambda_scripts.bucket
-  key    = "lambda.py"
-  source = "../../scripts/lambda.py"
-}
-
-resource "aws_s3_object" "lambda_script_folder" {
-  bucket       = aws_s3_bucket.lambda_scripts.bucket
-  key          = local.dag_folder
-  source       = "/dev/null"
-  content_type = "application/x-directory"
 }
