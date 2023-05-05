@@ -8,12 +8,7 @@ variable "glue_service_role_arn" {
   type        = string
 }
 
-variable "glue_script_name" {
-  description = "The name of the Glue job script file."
-  type        = string
-}
-
-variable "glue_scripts_bucket_arn" {
-  description = "The ARN of the S3 bucket containing the Glue job script."
+variable "glue_version" {
+  description = "The glue spark version."
   type        = string
 }
