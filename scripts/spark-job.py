@@ -69,7 +69,7 @@ schema = StructType(
 json_data = spark.read.format("json").schema(schema).load(source_bucket)
 
 # Convert the data to Parquet format and write to the destination
-json_data.write.format("parquet").mode("overwrite").save(destination_bucket)
+json_data.coalesce(1).write.format("parquet").mode("overwrite").save(destination_bucket)
 
 
 job.commit()

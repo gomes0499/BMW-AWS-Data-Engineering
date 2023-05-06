@@ -58,7 +58,7 @@ def stream_bmw_data(vehicle_id, interval=1):
 def send_data_to_kinesis(vehicle_id, interval=1):
     while True:
         bmw_data = generate_bmw_data(vehicle_id)
-        kinesis_record = {"Data": json.dumps(bmw_data), "PartitionKey": vehicle_id}
+        kinesis_record = {"Data": json.dumps(bmw_data) + '\n', "PartitionKey": vehicle_id}
         response = kinesis_client.put_record(StreamName=stream_name, **kinesis_record)
         print(f"Sent data to Kinesis stream {stream_name}: {response}")
         time.sleep(interval)
