@@ -30,7 +30,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "datalake_lifecycle" {
 locals {
   raw_folder       = "raw/"
   processed_folder = "processed/"
-  dag_folder       = "dags/"
 }
 
 resource "aws_s3_object" "raw_folder" {
@@ -69,6 +68,6 @@ resource "aws_s3_bucket" "athena_queries" {
 
   tags = {
     Terraform   = "true"
-    Environment = "spark"
+    Environment = "athena"
   }
 }
