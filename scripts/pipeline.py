@@ -4,13 +4,13 @@ import subprocess
 
 @task
 def run_data_ingestion():
-    subprocess.run(["python", "data-ingestion.py"])
+    subprocess.run(["python", "data_ingestion.py"])
     print("Data ingestion executed successfully")
 
 
 @task
 def run_data_process():
-    subprocess.run(["python", "data-process.py"])
+    subprocess.run(["python", "data_process.py"])
     print("Data process executed successfully")
 
 

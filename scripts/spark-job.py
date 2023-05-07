@@ -28,8 +28,9 @@ schema = StructType(
             "sensor_data",
             StructType(
                 [
+                    StructField("engine_temperature", FloatType(), True),
                     StructField(
-                        "engine_temperature",
+                        "tire_pressure",
                         StructType(
                             [
                                 StructField("front_left", FloatType(), True),
@@ -62,6 +63,7 @@ schema = StructType(
         ),
     ]
 )
+
 
 # Read JSON data from S3 source using the defined schema
 json_data = spark.read.format("json").schema(schema).load(source_bucket)
