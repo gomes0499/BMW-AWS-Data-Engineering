@@ -3,6 +3,7 @@ import random
 import time
 import boto3
 import configparser
+import os
 from datetime import datetime
 
 config = configparser.ConfigParser()
@@ -11,7 +12,12 @@ config.read("../config/config.ini")
 region_name = config.get("AWS", "region_name")
 stream_name = config.get("KINESIS", "stream_name")
 
-kinesis_client = boto3.client("kinesis", region_name=region_name)
+kinesis_client = boto3.client(
+    "kinesis",
+    region_name=os.environ.get("AWS_REGION"),
+    aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
+)
 
 
 def generate_sensor_data():

@@ -1,5 +1,6 @@
 import boto3
 import configparser
+import os
 
 config = configparser.ConfigParser()
 config.read("../config/config.ini")
@@ -11,7 +12,12 @@ region_name = config.get("AWS", "region_name")
 # Initialize the Athena client
 client = boto3.client(
     "athena",
+    region_name=os.environ.get("AWS_REGION"),
+    aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY")
 )
+
+
 
 # Set the SQL query and the output location for the query results
 sql_query = """
