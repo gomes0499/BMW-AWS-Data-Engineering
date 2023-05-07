@@ -3,5 +3,5 @@
 terraform.tfstate
 Data-Engineer-BMW-AWS.fig
 Data-Engineer-BMW-AWS.pdf
-# .terraform.lock.hcl
+.terraform.lock.hcl
 # config
