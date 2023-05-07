@@ -48,7 +48,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Authenticate to Prefect dependencies
-      run: prefect cloud login --key $KEY --workspace gomesproject
+      run: prefect cloud login --key $KEY --workspace gomesdataengineergmailcom/gomesproject
 
     - name: Register flow
       run: |
