@@ -6,10 +6,9 @@ import configparser
 import os
 from datetime import datetime
 
+# Get the kinesis stream_name
 config = configparser.ConfigParser()
 config.read("../config/config.ini")
-
-region_name = config.get("AWS", "region_name")
 stream_name = config.get("KINESIS", "stream_name")
 
 kinesis_client = boto3.client(
@@ -26,7 +25,7 @@ def generate_sensor_data():
         "oil_pressure": round(random.uniform(40, 50), 1),
         "battery_voltage": round(random.uniform(12, 14), 1),
         "braked_pad_wear": round(random.uniform(0, 100), 1),
-        "engine_temperature": {
+        "tire_pressure": {
             "front_left": round(random.uniform(30, 35), 1),
             "front_right": round(random.uniform(30, 35), 1),
             "rear_left": round(random.uniform(30, 35), 1),
