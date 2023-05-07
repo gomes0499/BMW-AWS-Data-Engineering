@@ -36,7 +36,7 @@ jobs:
     container:
       image: prefecthq/prefect:latest
     env:
-      KEY: ${{ secrets.PREFECT_TENANT_API_KEY}}
+      KEY: ${{ secrets.PREFECT_API_KEY }}
 
     steps:
     - uses: actions/checkout@v2
@@ -48,7 +48,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Authenticate to Prefect dependencies
-      run: prefect cloud login -k $KEY
+      run: prefect cloud login --key $KEY
 
     - name: Register flow
       run: |
