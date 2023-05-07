@@ -1,10 +1,11 @@
 from prefect import task, Flow
 import subprocess
-from datetime import timedelta
-from prefect.server.schemas.schedules import CronSchedule
 
 
-schedule = CronSchedule(cron="5 * * * *")
+@task
+def run_data_ingestion():
+    subprocess.run(["python", "data-ingestion.py"])
+    print("Data ingestion executed successfully")
 
 
 @task
@@ -12,10 +13,20 @@ def run_data_process():
     subprocess.run(["python", "data-process.py"])
     print("Data process executed successfully")
 
+
+@task
+def run_athena_table():
+    subprocess.run(["python", "athena.py"])
+    print("Athena table executed successfully")
+
+
 @Flow
-def my_favorite_function():
-    print("executed my_favorite_function successfully")
+def pipeline():
+    print("data pipeline executed successfully!")
+    run_data_ingestion()
     run_data_process()
+    run_athena_table()
+
 
 # Register the flow with Prefect
-print(my_favorite_function())
+print(pipeline())

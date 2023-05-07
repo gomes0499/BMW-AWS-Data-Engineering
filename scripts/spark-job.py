@@ -6,8 +6,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     TimestampType,
-    DoubleType,
-    MapType,
+    FloatType,
 )
 
 sc = SparkContext()
@@ -17,7 +16,7 @@ job = Job(glueContext)
 job.init("glue-spark-job")
 
 # Set the source and destination paths
-source_bucket = "s3://wu10-datalake/raw/"
+source_bucket = "s3://wu10-datalake/raw/*/*/*/*/"
 destination_bucket = "s3://wu10-datalake/processed/"
 
 # Define the schema of the JSON data
@@ -29,25 +28,24 @@ schema = StructType(
             "sensor_data",
             StructType(
                 [
-                    StructField("engine_temperature", DoubleType(), True),
-                    StructField("oil_pressure", DoubleType(), True),
-                    StructField("battery_voltage", DoubleType(), True),
-                    StructField("brake_pad_wear", DoubleType(), True),
                     StructField(
-                        "tire_pressure",
+                        "engine_temperature",
                         StructType(
                             [
-                                StructField("front_left", DoubleType(), True),
-                                StructField("front_right", DoubleType(), True),
-                                StructField("rear_left", DoubleType(), True),
-                                StructField("rear_right", DoubleType(), True),
+                                StructField("front_left", FloatType(), True),
+                                StructField("front_right", FloatType(), True),
+                                StructField("rear_left", FloatType(), True),
+                                StructField("rear_right", FloatType(), True),
                             ]
                         ),
                         True,
                     ),
-                    StructField("transmission_temperature", DoubleType(), True),
-                    StructField("fuel_level", DoubleType(), True),
-                    StructField("odometer", DoubleType(), True),
+                    StructField("oil_pressure", FloatType(), True),
+                    StructField("battery_voltage", FloatType(), True),
+                    StructField("braked_pad_wear", FloatType(), True),
+                    StructField("transmission_temperature", FloatType(), True),
+                    StructField("fuel_level", FloatType(), True),
+                    StructField("odometer", FloatType(), True),
                 ]
             ),
             True,
@@ -56,8 +54,8 @@ schema = StructType(
             "location",
             StructType(
                 [
-                    StructField("latitude", DoubleType(), True),
-                    StructField("longitude", DoubleType(), True),
+                    StructField("latitude", FloatType(), True),
+                    StructField("longitude", FloatType(), True),
                 ]
             ),
             True,
@@ -69,7 +67,7 @@ schema = StructType(
 json_data = spark.read.format("json").schema(schema).load(source_bucket)
 
 # Convert the data to Parquet format and write to the destination
-json_data.coalesce(1).write.format("parquet").mode("overwrite").save(destination_bucket)
+json_data.write.format("parquet").mode("overwrite").save(destination_bucket)
 
 
 job.commit()
