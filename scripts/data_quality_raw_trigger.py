@@ -15,6 +15,6 @@ def start_glue_job(job_name):
     return job_run["JobRunId"]
 
 
-job_name = "glue-spark-job"
+job_name = "glue-job-quality-raw"
 job_run_id = start_glue_job(job_name)
 print(f"Started Glue job {job_name} with JobRunId: {job_run_id}")

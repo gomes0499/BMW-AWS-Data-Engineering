@@ -2,9 +2,5 @@
 .vscode
 .terraform
 terraform.tfstate
-Data-Engineer-BMW-AWS.fig
-Data-Engineer-BMW-AWS.pdf
 .terraform.lock.hcl
-# config
-notes.txt
-
+utils
