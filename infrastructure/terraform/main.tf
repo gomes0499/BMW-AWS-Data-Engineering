@@ -10,9 +10,11 @@ module "s3" {
 module "spark-glue" {
   source = "./modules/glue"
 
-  glue_job_name         = var.glue_job_name
-  glue_service_role_arn = var.glue_service_role_arn
-  glue_version          = var.glue_version
+  glue_job_name                   = var.glue_job_name
+  glue_job_name_quality_raw       = var.glue_job_name_quality_raw
+  glue_job_name_quality_processed = var.glue_job_name_quality_processed
+  glue_service_role_arn           = var.glue_service_role_arn
+  glue_version                    = var.glue_version
 }
 
 # kinesis
@@ -28,4 +30,14 @@ module "kinesis" {
   kinesis_buffer_interval    = var.kinesis_buffer_interval
 }
 
+
+# CloudWatch
+module "cloudwatch" {
+  source = "./modules/cloudwatch"
+
+  kinesis_stream_name   = var.kinesis_stream_name
+  kinesis_firehose_name = var.kinesis_firehose_name
+  bucket_name           = var.bucket_name
+  glue_job_name         = var.glue_job_name
+}
 

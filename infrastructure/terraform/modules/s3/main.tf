@@ -62,6 +62,18 @@ resource "aws_s3_object" "glue_script_file" {
   source = "../../scripts/spark-job.py"
 }
 
+resource "aws_s3_object" "glue_script_quality_raw" {
+  bucket = aws_s3_bucket.glue_scripts.bucket
+  key    = "spark/data_quality_raw.py"
+  source = "../../scripts/data_quality_raw.py"
+}
+
+resource "aws_s3_object" "glue_script_quality_processed" {
+  bucket = aws_s3_bucket.glue_scripts.bucket
+  key    = "spark/data_quality_processed"
+  source = "../../scripts/data_quality_processed"
+}
+
 # Athena Bucket
 resource "aws_s3_bucket" "athena_queries" {
   bucket = "wu10athena-queries"
