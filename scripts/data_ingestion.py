@@ -13,9 +13,9 @@ stream_name = config.get("KINESIS", "stream_name")
 
 kinesis_client = boto3.client(
     "kinesis",
-    # region_name=os.environ.get("AWS_REGION"),
-    # aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
-    # aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
+    region_name=os.environ.get("AWS_REGION"),
+    aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
 )
 
 

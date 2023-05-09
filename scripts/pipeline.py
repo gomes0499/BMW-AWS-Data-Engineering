@@ -2,6 +2,7 @@ from prefect import task, Flow
 from prefect_email import EmailServerCredentials, email_send_message
 from prefect.context import get_run_context
 import subprocess
+import time
 
 
 @task
@@ -11,21 +12,9 @@ def run_kinesis_data_ingestion():
 
 
 @task
-def run_data_quality_validation_raw():
-    subprocess.run(["python", "data_quality_raw_trigger.py"])
-    print("Data validation for data lake raw zone executed successfully")
-
-
-@task
 def run_spark_data_process():
-    subprocess.run(["python", "data_process.py"])
+    subprocess.run(["python", "data_process_trigger.py"])
     print("Spark process executed successfully")
-
-
-@task
-def run_data_quality_validation_processed():
-    subprocess.run(["python", "data_quality_processed_trigger.py"])
-    print("Data validation for data lake processed zone executed successfully")
 
 
 @task
@@ -51,9 +40,7 @@ def pipeline():
     try:
         print("data pipeline executed successfully!")
         run_kinesis_data_ingestion()
-        run_data_quality_validation_raw()
         run_spark_data_process()
-        run_data_quality_validation_processed()
         run_create_athena_table()
     except Exception as exc:
         notify_exc_by_email(exc)
