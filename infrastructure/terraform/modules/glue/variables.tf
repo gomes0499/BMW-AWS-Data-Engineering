@@ -12,13 +12,3 @@ variable "glue_version" {
   description = "The glue spark version."
   type        = string
 }
-
-variable "glue_job_name_quality_raw" {
-  description = "The name of the Glue job."
-  type        = string
-}
-
-variable "glue_job_name_quality_processed" {
-  description = "The name of the Glue job."
-  type        = string
-}

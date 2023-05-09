@@ -5,9 +5,9 @@ import os
 def start_glue_job(job_name):
     glue = boto3.client(
         "glue",
-        # region_name=os.environ.get("AWS_REGION"),
-        # aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
-        # aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
+        region_name=os.environ.get("AWS_REGION"),
+        aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
     )
 
     job_run = glue.start_job_run(JobName=job_name)

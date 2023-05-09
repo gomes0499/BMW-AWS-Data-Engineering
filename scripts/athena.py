@@ -17,23 +17,23 @@ def create_table_athena():
     `vehicle_id` string,
     `timestamp` timestamp,
     `sensor_data` struct<
-      `engine_temperature`: float,
+      `engine_temperature`: double,
       `tire_pressure`: struct<
-        `front_left`: float,
-        `front_right`: float,
-        `rear_left`: float,
-        `rear_right`: float
+        `front_left`: double,
+        `front_right`: double,
+        `rear_left`: double,
+        `rear_right`: double
       >,
-      `oil_pressure`: float,
-      `battery_voltage`: float,
-      `braked_pad_wear`: float,
-      `transmission_temperature`: float,
-      `fuel_level`: float,
-      `odometer`: float
+      `oil_pressure`: double,
+      `battery_voltage`: double,
+      `braked_pad_wear`: double,
+      `transmission_temperature`: double,
+      `fuel_level`: double,
+      `odometer`: double
     >,
     `location` struct<
-      `latitude`: float,
-      `longitude`: float
+      `latitude`: double,
+      `longitude`: double
     >
   )
   ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'

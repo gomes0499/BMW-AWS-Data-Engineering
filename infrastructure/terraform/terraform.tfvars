@@ -4,8 +4,6 @@ region      = "us-east-1"
 
 # Vars for Glue
 glue_job_name                   = "glue-spark-job"
-glue_job_name_quality_raw       = "glue-job-quality-raw"
-glue_job_name_quality_processed = "glue-job-quality-processed"
 glue_service_role_arn           = "arn:aws:iam::222498481656:role/data_engineer_services"
 glue_version                    = "3.0"
 
